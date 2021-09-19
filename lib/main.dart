@@ -17,6 +17,7 @@ void main() {
   BlackCat blackCat =
       Animal.factory(name: 'Neko', type: 'black cat') as BlackCat;
   print(blackCat);
+  blackCat.play();
 
   assert(blackCat.name == 'Neko', 'Cat\'s name should be \'Neko\'');
 
