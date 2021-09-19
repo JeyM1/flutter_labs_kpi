@@ -14,17 +14,38 @@ void main() {
   print(firstDog);
   firstDog.play();
 
-  BlackCat blackCat = Animal.factory(name: 'Neko', type: 'black cat') as BlackCat;
+  BlackCat blackCat =
+      Animal.factory(name: 'Neko', type: 'black cat') as BlackCat;
   print(blackCat);
 
   assert(blackCat.name == 'Neko', 'Cat\'s name should be \'Neko\'');
 
   // collections
   const LIMIT = 10;
-  var numbers = [for(var i = 0; i < LIMIT; i++) i * i];
+  List numbers = [for (var i = 0; i < LIMIT; i++) i * i];
   print(numbers);
 
-  assert(numbers.length == LIMIT, 'numbers shoul have length of $LIMIT}');
+  assert(numbers.length == LIMIT, 'numbers should have length of $LIMIT}');
+
+  Map student = {
+    'name': 'Denys',
+    'lastname': 'Afendikov',
+    'group': 'TI-81',
+    'age': 20,
+    'labReady': false,
+  };
+  print(student);
+
+  student['labReady'] = true;
+  print(student);
+
+  Set nums = {1, 2, 3};
+  nums.add(4);
+  nums.add(3);
+  nums.add(4);
+  print(nums);
+
+  assert(nums.length == 4);
 
   runApp(MyApp());
 }
