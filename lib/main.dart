@@ -25,6 +25,9 @@ void main() {
   const LIMIT = 10;
   List numbers = [for (var i = 0; i < LIMIT; i++) i * i];
   print(numbers);
+  print(numbers.reduce((value, element) => value + element));
+  List nums2 = [20, ...numbers, 100];
+  print(nums2);
 
   assert(numbers.length == LIMIT, 'numbers should have length of $LIMIT}');
 
