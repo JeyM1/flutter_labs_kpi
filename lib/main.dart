@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import './components/video.dart';
+import './pages/main_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,12 +38,35 @@ class MyApp extends StatelessWidget {
         ),
       ),
       themeMode: ThemeMode.dark,
-      home: MainPage(),
+      home: App(),
     );
   }
 }
 
-class MainPage extends StatelessWidget {
+class App extends StatefulWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  static final _indexToPageMap = [
+    MainPage(),
+    Text('Not implemented'),
+    Text('Not implemented'),
+    Text('Not implemented'),
+    Text('Not implemented'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -190,60 +213,40 @@ class MainPage extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: VideoPreview(
-                previewImage: '../resources/images/videos/papich1.jpg',
-                description: 'папич злобно рычит. Вся Винница в шоке aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadgdfgdfgdgfddgdfaa',
-                length: '0:31',
-                channelAvatarImage: '../resources/images/channels/stul_papicha.jpg',
-                channelName: 'Стул Папича',
-                views: '7,6 тыс. просмотров',
-                uploadedAt: '3 часа назад',
-              ),
+      bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
+              label: 'Home',
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: VideoPreview(
-                previewImage: '../resources/images/videos/papich1.jpg',
-                description: 'папич злобно рычит. Вся Винница в шоке aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadgdfgdfgdgfddgdfaa',
-                length: '0:31',
-                channelAvatarImage: '../resources/images/channels/stul_papicha.jpg',
-                channelName: 'Стул Папича',
-                views: '7,6 тыс. просмотров',
-                uploadedAt: '3 часа назад',
-              ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.movie_creation_outlined),
+              activeIcon: Icon(Icons.movie_creation),
+              label: 'Shorts',
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: VideoPreview(
-                previewImage: '../resources/images/videos/papich1.jpg',
-                description: 'папич злобно рычит. Вся Винница в шоке aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadgdfgdfgdgfddgdfaa',
-                length: '0:31',
-                channelAvatarImage: '../resources/images/channels/stul_papicha.jpg',
-                channelName: 'Стул Папича',
-                views: '7,6 тыс. просмотров',
-                uploadedAt: '3 часа назад',
-              ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add_circle_outline),
+              activeIcon: Icon(Icons.add_circle),
+              label: 'Create'
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: VideoPreview(
-                previewImage: '../resources/images/videos/papich1.jpg',
-                description: 'папич злобно рычит. Вся Винница в шоке aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadgdfgdfgdgfddgdfaa',
-                length: '0:31',
-                channelAvatarImage: '../resources/images/channels/stul_papicha.jpg',
-                channelName: 'Стул Папича',
-                views: '7,6 тыс. просмотров',
-                uploadedAt: '3 часа назад',
-              ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.subscriptions_outlined),
+              activeIcon: Icon(Icons.subscriptions),
+              label: 'Subscriptions',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.video_library_outlined),
+              activeIcon: Icon(Icons.video_library),
+              label: 'Library',
             ),
           ],
-        ),
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.white,
+          onTap: _onItemTapped,
+        showUnselectedLabels: true,
       ),
+      body: _indexToPageMap.elementAt(_selectedIndex),
     );
   }
 }
