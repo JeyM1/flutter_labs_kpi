@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import './components/video.dart';
 
 void main() {
   runApp(MyApp());
@@ -188,53 +190,59 @@ class MainPage extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+          children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: VideoPreview(
+                previewImage: '../resources/images/videos/papich1.jpg',
+                description: 'папич злобно рычит. Вся Винница в шоке aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadgdfgdfgdgfddgdfaa',
+                length: '0:31',
+                channelAvatarImage: '../resources/images/channels/stul_papicha.jpg',
+                channelName: 'Стул Папича',
+                views: '7,6 тыс. просмотров',
+                uploadedAt: '3 часа назад',
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: VideoPreview(
+                previewImage: '../resources/images/videos/papich1.jpg',
+                description: 'папич злобно рычит. Вся Винница в шоке aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadgdfgdfgdgfddgdfaa',
+                length: '0:31',
+                channelAvatarImage: '../resources/images/channels/stul_papicha.jpg',
+                channelName: 'Стул Папича',
+                views: '7,6 тыс. просмотров',
+                uploadedAt: '3 часа назад',
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: VideoPreview(
+                previewImage: '../resources/images/videos/papich1.jpg',
+                description: 'папич злобно рычит. Вся Винница в шоке aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadgdfgdfgdgfddgdfaa',
+                length: '0:31',
+                channelAvatarImage: '../resources/images/channels/stul_papicha.jpg',
+                channelName: 'Стул Папича',
+                views: '7,6 тыс. просмотров',
+                uploadedAt: '3 часа назад',
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: VideoPreview(
+                previewImage: '../resources/images/videos/papich1.jpg',
+                description: 'папич злобно рычит. Вся Винница в шоке aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadgdfgdfgdgfddgdfaa',
+                length: '0:31',
+                channelAvatarImage: '../resources/images/channels/stul_papicha.jpg',
+                channelName: 'Стул Папича',
+                views: '7,6 тыс. просмотров',
+                uploadedAt: '3 часа назад',
+              ),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
