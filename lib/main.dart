@@ -1,56 +1,7 @@
 import 'package:flutter/material.dart';
-import './basic.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
-  syntaxSugar(null);
-  var multiplyBy10 = multiplier(by: 10);
-  print('[multiplier] 3 * 10 = ${multiplyBy10(3)}');
-
-  Dog firstDog = Animal.factory(name: 'Bob', type: 'dog') as Dog;
-  firstDog
-    ..favoriteBone = 'super bone'
-    ..color = Color.fromRGBO(0, 0, 0, 1);
-
-  print(firstDog);
-  firstDog.play();
-
-  BlackCat blackCat =
-      Animal.factory(name: 'Neko', type: 'black cat') as BlackCat;
-  print(blackCat);
-  blackCat.play();
-
-  assert(blackCat.name == 'Neko', 'Cat\'s name should be \'Neko\'');
-
-  // collections
-  const LIMIT = 10;
-  List numbers = [for (var i = 0; i < LIMIT; i++) i * i];
-  print(numbers);
-  print(numbers.reduce((value, element) => value + element));
-  List nums2 = [20, ...numbers, 100];
-  print(nums2);
-
-  assert(numbers.length == LIMIT, 'numbers should have length of $LIMIT}');
-
-  Map student = {
-    'name': 'Denys',
-    'lastname': 'Afendikov',
-    'group': 'TI-81',
-    'age': 20,
-    'labReady': false,
-  };
-  print(student);
-
-  student['labReady'] = true;
-  print(student);
-
-  Set nums = {1, 2, 3};
-  nums.add(4);
-  nums.add(3);
-  nums.add(4);
-  print(nums);
-
-  assert(nums.length == 4);
-
   runApp(MyApp());
 }
 
@@ -58,11 +9,186 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TI-81 Afendikov Denys Flutter Demo',
+      title: 'Another YouTube clone',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        // primarySwatch: Colors.grey,
+
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            onPrimary: Colors.white,
+            primary: Colors.white12,
+          ).copyWith(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+                side: BorderSide(color: Colors.transparent),
+              ),
+            ),
+          ),
+        ),
+
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            onPrimary: Colors.white,
+            primary: Colors.white10,
+          ),
+        ),
       ),
-      home: MyHomePage(title: 'TI-81 Afendikov Denys Flutter Demo'),
+      themeMode: ThemeMode.dark,
+      home: MainPage(),
+    );
+  }
+}
+
+class MainPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: SvgPicture.asset(
+          '../resources/images/YouTube-Icon-Full-Color-Logo.wine.svg',
+          semanticsLabel: 'YouTube Logo',
+          fit: BoxFit.contain,
+        ),
+        title: Text(
+          'YouTube',
+          style: TextStyle(
+              fontFamily: 'YouTubeSans',
+              fontWeight: FontWeight.w700,
+              fontSize: 32,
+              letterSpacing: -2),
+        ),
+        titleSpacing: -3,
+        actions: <Widget>[
+          IconButton(
+              icon: const Icon(Icons.notifications_outlined),
+              tooltip: 'Show Notifications',
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute<void>(
+                  builder: (BuildContext context) {
+                    return Scaffold(
+                      appBar: AppBar(
+                        title: const Text('Notifications'),
+                      ),
+                      body: const Center(
+                        child: Text(
+                          'Empty here...',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                      ),
+                    );
+                  },
+                ));
+              }),
+          IconButton(
+            icon: const Icon(Icons.search),
+            tooltip: 'Search',
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('In development')));
+            },
+          ),
+          IconButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('In development')));
+            },
+            icon: CircleAvatar(
+              radius: 20,
+              backgroundImage:
+                  AssetImage('../resources/images/default-avatar.png'),
+            ),
+          )
+        ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(40),
+          child: Container(
+            height: 40,
+            padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    OutlinedButton(
+                      child: Row(
+                        children: [
+                          const Icon(Icons.explore_outlined),
+                          const Text('Navigator'),
+                        ],
+                      ),
+                      onPressed: () {},
+                      // style: ButtonStyle(
+                      //   backgroundColor:
+                      //       MaterialStateProperty.all<Color>(Colors.black12),
+                      // ),
+                    ),
+                    VerticalDivider(
+                      thickness: 1,
+                    ),
+                    Container(
+                      child: ElevatedButton(
+                          child: const Text('All'),
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            onPrimary: Colors.black,
+                            primary: Colors.white,
+                          )),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 5),
+                      child: ElevatedButton(
+                        child: const Text('Watched'),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 5),
+                      child: ElevatedButton(
+                        child: const Text('Music'),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 5),
+                      child: ElevatedButton(
+                        child: const Text('Games'),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 5),
+                      child: ElevatedButton(
+                        child: const Text('Animation'),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 5),
+                      child: ElevatedButton(
+                        child: const Text('Online'),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 5),
+                      child: ElevatedButton(
+                        child: const Text('Art'),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(),
     );
   }
 }
@@ -87,8 +213,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var sumator = new BasicClass(a: _counter, b: 2);
-    print(sumator);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -102,13 +226,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Text(
-              '+ 2:',
-            ),
-            Text(
-              '${sumator.sum}',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
