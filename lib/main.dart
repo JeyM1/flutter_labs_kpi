@@ -29,11 +29,15 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ElevatedButton.styleFrom(
             onPrimary: Colors.white,
             primary: Colors.white10,
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: Colors.white,
           ),
         ),
       ),
@@ -221,36 +225,35 @@ class _AppState extends State<App> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.movie_creation_outlined),
-              activeIcon: Icon(Icons.movie_creation),
-              label: 'Shorts',
-            ),
-            BottomNavigationBarItem(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.movie_creation_outlined),
+            activeIcon: Icon(Icons.movie_creation),
+            label: 'Shorts',
+          ),
+          BottomNavigationBarItem(
               icon: Icon(Icons.add_circle_outline),
               activeIcon: Icon(Icons.add_circle),
-              label: 'Create'
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.subscriptions_outlined),
-              activeIcon: Icon(Icons.subscriptions),
-              label: 'Subscriptions',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.video_library_outlined),
-              activeIcon: Icon(Icons.video_library),
-              label: 'Library',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.white,
-          onTap: _onItemTapped,
+              label: 'Create'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.subscriptions_outlined),
+            activeIcon: Icon(Icons.subscriptions),
+            label: 'Subscriptions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.video_library_outlined),
+            activeIcon: Icon(Icons.video_library),
+            label: 'Library',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
+        onTap: _onItemTapped,
         showUnselectedLabels: true,
       ),
       endDrawer: Drawer(
