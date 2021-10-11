@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lab1_flutter_dart_basics/videos.dart';
 
 class VideoPage extends StatelessWidget {
   static const TextStyle BottomInfoStyle = TextStyle(
@@ -8,38 +9,39 @@ class VideoPage extends StatelessWidget {
     fontFamily: 'Roboto',
   );
 
-  final String tag;
+  final String id;
 
-  final String _previewImage;
-  final String _description;
-  final String _length;
+  late final String _previewImage;
+  late final String _description;
+  late final String _length;
 
-  final String _channelAvatarImage;
-  final String _channelName;
-  final String _views;
-  final String _uploadedAt;
+  late final String _channelAvatarImage;
+  late final String _channelName;
+  late final String _views;
+  late final String _uploadedAt;
 
-  VideoPage(
-      {required this.tag,
-      required previewImage,
-      required description,
-      required length,
-      required channelAvatarImage,
-      required channelName,
-      required views,
-      required uploadedAt})
-      : this._previewImage = previewImage,
-        this._description = description,
-        this._length = length,
-        this._channelAvatarImage = channelAvatarImage,
-        this._channelName = channelName,
-        this._views = views,
-        this._uploadedAt = uploadedAt;
+  late final String _likes;
+  late final String _dislikes;
+  late final String _subscribers;
+
+  VideoPage({required this.id}) {
+    Map video = getVideoById(this.id);
+    this._previewImage = video['previewImage'];
+    this._description = video['description'];
+    this._length = video['length'];
+    this._channelAvatarImage = video['channelAvatarImage'];
+    this._channelName = video['channelName'];
+    this._views = video['views'];
+    this._uploadedAt = video['uploadedAt'];
+    this._likes = video['likes'];
+    this._dislikes = video['dislikes'];
+    this._subscribers = video['subscribers'];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: this.tag,
+      tag: this.id,
       child: Material(
         child: SingleChildScrollView(
           child: Column(
@@ -132,6 +134,7 @@ class VideoPage extends StatelessWidget {
                 height: 20,
               ),
               Container(
+                padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -144,7 +147,7 @@ class VideoPage extends StatelessWidget {
                             thickness: 0,
                             height: 3,
                           ),
-                          Text('100'),
+                          Text(this._likes),
                         ],
                       ),
                     ),
@@ -157,7 +160,7 @@ class VideoPage extends StatelessWidget {
                             thickness: 0,
                             height: 3,
                           ),
-                          Text('0'),
+                          Text(this._dislikes),
                         ],
                       ),
                     ),
@@ -193,90 +196,92 @@ class VideoPage extends StatelessWidget {
               Divider(
                 thickness: 1,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // channel info
-                  Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          height: 36,
-                          width: 36,
-                          margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                          child: CircleAvatar(
-                            backgroundImage:
-                                AssetImage(this._channelAvatarImage),
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // channel info
+                    Container(
+                      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            height: 36,
+                            width: 36,
+                            margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  AssetImage(this._channelAvatarImage),
+                            ),
                           ),
-                        ),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Flexible(
-                                    child: Container(
-                                      child: Text(
-                                        this._channelName,
-                                        style: TextStyle(fontSize: 14),
-                                        maxLines: 1,
-                                        softWrap: true,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Flexible(
-                                    child: Container(
-                                      child: Text(
-                                        '81.6K subscribers',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey,
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Flexible(
+                                      child: Container(
+                                        child: Text(
+                                          this._channelName,
+                                          style: TextStyle(fontSize: 14),
+                                          maxLines: 1,
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        maxLines: 1,
-                                        softWrap: true,
-                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Flexible(
+                                      child: Container(
+                                        child: Text(
+                                          '${this._subscribers} subscribers',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey,
+                                          ),
+                                          maxLines: 1,
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  Container(
-                    child: Text(
-                      'SUBSCRIBE',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 16,
+                        ],
                       ),
                     ),
-                  ),
 
-                  Container(
-                    child: IconButton(
-                      icon: Icon(Icons.notifications_outlined),
-                      onPressed: () {},
+                    Container(
+                      child: Text(
+                        'SUBSCRIBE',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
-                  )
-                ],
-              ),
 
+                    Container(
+                      child: IconButton(
+                        icon: Icon(Icons.notifications_outlined),
+                        onPressed: () {},
+                      ),
+                    )
+                  ],
+                ),
+              ),
               Divider(
                 height: 1,
               ),

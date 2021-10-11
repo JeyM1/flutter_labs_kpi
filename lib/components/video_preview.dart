@@ -18,10 +18,10 @@ class VideoPreview extends StatelessWidget {
   final String _views;
   final String _uploadedAt;
 
-  final String tag;
+  final String id;
 
   VideoPreview(
-      {required this.tag,
+      {required this.id,
       required previewImage,
       required description,
       required length,
@@ -41,21 +41,15 @@ class VideoPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     // timeDilation = 1.0;
     return Hero(
-      tag: this.tag,
+      tag: this.id,
       child: RawMaterialButton(
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute<void>(builder: (BuildContext context) {
               return Scaffold(
                 body: VideoPage(
-                    tag: this.tag,
-                    previewImage: this._previewImage,
-                    description: this._description,
-                    length: this._length,
-                    channelAvatarImage: this._channelAvatarImage,
-                    channelName: this._channelName,
-                    views: this._views,
-                    uploadedAt: this._uploadedAt),
+                    id: this.id,
+                ),
               );
             }),
           );
