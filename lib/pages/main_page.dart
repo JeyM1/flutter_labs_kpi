@@ -21,7 +21,7 @@ class MainPage extends StatelessWidget {
                   channelAvatarImage: e['channelAvatarImage'],
                   channelName: e['channelName'],
                   views: e['views'],
-                  uploadedAt: e['uploadedAt'],
+                  shortUploadedAt: e['shortUploadedAt'],
                 ),
               ),
             )

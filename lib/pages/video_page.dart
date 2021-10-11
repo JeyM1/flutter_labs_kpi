@@ -197,78 +197,86 @@ class VideoPage extends StatelessWidget {
                 thickness: 1,
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                padding: EdgeInsets.fromLTRB(5, 0, 15, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // channel info
-                    Container(
-                      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            height: 36,
-                            width: 36,
-                            margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage(this._channelAvatarImage),
+                    MaterialButton(
+                      onPressed: () {  },
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              height: 36,
+                              width: 36,
+                              margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                              child: CircleAvatar(
+                                backgroundImage:
+                                    AssetImage(this._channelAvatarImage),
+                              ),
                             ),
-                          ),
-                          Flexible(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Flexible(
-                                      child: Container(
-                                        child: Text(
-                                          this._channelName,
-                                          style: TextStyle(fontSize: 14),
-                                          maxLines: 1,
-                                          softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Flexible(
-                                      child: Container(
-                                        child: Text(
-                                          '${this._subscribers} subscribers',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey,
+                            Container(
+                              width: 80,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Flexible(
+                                        child: Container(
+                                          child: Text(
+                                            this._channelName,
+                                            style: TextStyle(fontSize: 14),
+                                            maxLines: 1,
+                                            softWrap: false,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
-                                          maxLines: 1,
-                                          softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Flexible(
+                                        child: Container(
+                                          child: Text(
+                                            '${this._subscribers} subscribers',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey,
+                                            ),
+                                            maxLines: 1,
+                                            softWrap: true,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
 
-                    Container(
-                      child: Text(
-                        'SUBSCRIBE',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 16,
+                    TextButton(
+                      onPressed: () {  },
+                      child: Container(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          'SUBSCRIBE',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ),

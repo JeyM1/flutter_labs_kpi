@@ -86,7 +86,7 @@ class _AppState extends State<App> {
       key: _scaffoldKey,
       appBar: AppBar(
         leading: SvgPicture.asset(
-          '../resources/images/YouTube-Icon-Full-Color-Logo.wine.svg',
+          'resources/images/YouTube-Icon-Full-Color-Logo.wine.svg',
           semanticsLabel: 'YouTube Logo',
           fit: BoxFit.contain,
         ),
@@ -133,14 +133,14 @@ class _AppState extends State<App> {
             icon: CircleAvatar(
               radius: 20,
               backgroundImage:
-                  AssetImage('../resources/images/default-avatar.png'),
+                  AssetImage('resources/images/default-avatar.png'),
             ),
           )
         ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(40),
+          preferredSize: Size.fromHeight(45),
           child: Container(
-            height: 40,
+            height: 45,
             padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
             child: ListView(
               scrollDirection: Axis.horizontal,
@@ -283,6 +283,15 @@ class _AppState extends State<App> {
         ),
       ),
       endDrawerEnableOpenDragGesture: false,
+
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     // Add your onPressed code here!
+      //   },
+      //   child: const Icon(Icons.navigation),
+      //   backgroundColor: Colors.grey,
+      // ),
+
       body: _indexToPageMap.elementAt(_selectedIndex),
     );
   }

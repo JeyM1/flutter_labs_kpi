@@ -28,14 +28,14 @@ class VideoPreview extends StatelessWidget {
       required channelAvatarImage,
       required channelName,
       required views,
-      required uploadedAt})
+      required shortUploadedAt})
       : this._previewImage = previewImage,
         this._description = description,
         this._length = length,
         this._channelAvatarImage = channelAvatarImage,
         this._channelName = channelName,
         this._views = views,
-        this._uploadedAt = uploadedAt;
+        this._uploadedAt = shortUploadedAt;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +55,7 @@ class VideoPreview extends StatelessWidget {
           );
         },
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: double.infinity,
@@ -84,6 +85,7 @@ class VideoPreview extends StatelessWidget {
             Container(
               margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
@@ -112,7 +114,8 @@ class VideoPreview extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Row(
+                        Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
                             Container(
                               child: Text(
