@@ -7,12 +7,12 @@ List videos = [
     'length': '1:09:26',
     'channelAvatarImage': 'resources/images/channels/serhiy_tytenko.jpg',
     'channelName': 'Сергій Титенко | Web-development',
-    'views': '476 views',
+    'views': 476,
     'shortUploadedAt': '2 years ago',
     'uploadedAt': 'Sep 21, 2019',
-    'likes': '8',
-    'dislikes': '0',
-    'subscribers': '344'
+    'likes': 12,
+    'dislikes': 0,
+    'subscribers': 344
   },
   {
     'id': '2',
@@ -21,12 +21,12 @@ List videos = [
     'length': '46:55',
     'channelAvatarImage': 'resources/images/channels/serhiy_tytenko.jpg',
     'channelName': 'Сергій Титенко | Web-development',
-    'views': '317 views',
+    'views': 317,
     'shortUploadedAt': '2 years ago',
     'uploadedAt': 'Nov 25, 2019',
-    'likes': '9',
-    'dislikes': '0',
-    'subscribers': '344'
+    'likes': 9,
+    'dislikes': 0,
+    'subscribers': 344
   },
   {
     'id': '3',
@@ -35,18 +35,14 @@ List videos = [
     'length': '0:31',
     'channelAvatarImage': 'resources/images/channels/stul_papicha.jpg',
     'channelName': 'Стул Папича',
-    'views': '7,6K views',
+    'views': 7654,
     'shortUploadedAt': '3 hours ago',
     'uploadedAt': 'Nov 11, 2021',
-    'likes': '1.1K',
-    'dislikes': '0',
-    'subscribers': '81.6K'
+    'likes': 1189,
+    'dislikes': 0,
+    'subscribers': 81652
   }
 ];
-
-Map getVideoById(dynamic id) {
-  return videos.firstWhere((element) => element['id'] == id);
-}
 
 List getVideos() {
   return videos;

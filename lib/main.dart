@@ -1,15 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lab1_flutter_dart_basics/pages/subscriptions_page.dart';
+import 'package:provider/provider.dart';
+import './models/videos.dart';
 import './pages/main_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => Videos(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Provider.of<Videos>(context, listen: false).update();
     return MaterialApp(
       title: 'Another YouTube clone',
       theme: ThemeData(
@@ -56,7 +65,10 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   int _selectedIndex = 0;
+  int _totalSubscribeCount = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+
 
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
@@ -72,11 +84,20 @@ class _AppState extends State<App> {
     });
   }
 
-  static final _indexToPageMap = [
-    MainPage(),
+  void incrementTotalSubsCount() {
+    setState(() {
+      _totalSubscribeCount++;
+    });
+  }
+
+  List get indexToPageMap => [
+    MainPage(incrementSubscribeCounter: incrementTotalSubsCount),
     Text('Not implemented'),
     Text('Not implemented'),
-    Text('Not implemented'),
+    SubscriptionsPage(
+        totalSubscribeClicks: _totalSubscribeCount,
+        onClick: incrementTotalSubsCount
+    ),
     Text('Not implemented'),
   ];
 
@@ -292,7 +313,7 @@ class _AppState extends State<App> {
       //   backgroundColor: Colors.grey,
       // ),
 
-      body: _indexToPageMap.elementAt(_selectedIndex),
+      body: indexToPageMap.elementAt(_selectedIndex),
     );
   }
 }
