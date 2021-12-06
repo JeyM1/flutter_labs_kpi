@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import '../utils/fetchVideos.dart';
 
 class Videos extends ChangeNotifier {
-  final List<Map> _videos = [];
+  late List<Map<String, dynamic>> _videos = [];
 
   void update() {
     _videos.clear();
     getVideos().then((videos) {
-      videos.forEach((element) {
+      _videos = videos.map((element) {
         element['isLiked'] = 'null';
-        _videos.add(element);
-      });
+        return element;
+      }).toList();
       notifyListeners();
     });
   }

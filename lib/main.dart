@@ -9,27 +9,23 @@ import './models/videos.dart';
 import './pages/main_page.dart';
 
 void main() {
-  SharedPreferences.getInstance().then((sp) {
-    runApp(
-      ChangeNotifierProvider(
-        create: (context) => Videos(),
-        child: MyApp(isDarkTheme: sp.getBool('isDarkTheme') ?? true),
-      ),
-    );
-  });
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => Videos(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
-  final bool isDarkTheme;
-
-  const MyApp({Key? key, required this.isDarkTheme}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _MyAppState(isDarkTheme);
+  State<StatefulWidget> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  late bool isDarkTheme;
+  late bool isDarkTheme = true;
 
   void toggleTheme() {
     setState(() {
@@ -40,8 +36,13 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-
-  _MyAppState(this.isDarkTheme);
+  _MyAppState() {
+    SharedPreferences.getInstance().then((sp) {
+      setState(() {
+        isDarkTheme = sp.getBool('isDarkTheme') ?? true;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
