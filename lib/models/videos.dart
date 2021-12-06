@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../videos.dart';
+import '../utils/fetchVideos.dart';
 
 class Videos extends ChangeNotifier {
   final List<Map> _videos = [];
 
   void update() {
     _videos.clear();
-    getVideos().forEach((element) {
-      element['isLiked'] = 'null';
-      _videos.add(element);
+    getVideos().then((videos) {
+      videos.forEach((element) {
+        element['isLiked'] = 'null';
+        _videos.add(element);
+      });
+      notifyListeners();
     });
-    notifyListeners();
   }
 
   List getAll() {
@@ -24,12 +26,12 @@ class Videos extends ChangeNotifier {
 
   void like(dynamic id) {
     final video = getVideoById(id);
-    if(video['isLiked'] == 'liked') {
+    if (video['isLiked'] == 'liked') {
       // already liked
       video['isLiked'] = 'null';
       video['likes']--;
     } else {
-      if(video['isLiked'] == 'disliked') {
+      if (video['isLiked'] == 'disliked') {
         video['dislikes']--;
       }
       video['isLiked'] = 'liked';
@@ -43,12 +45,12 @@ class Videos extends ChangeNotifier {
 
   void dislike(dynamic id) {
     final video = getVideoById(id);
-    if(video['isLiked'] == 'disliked') {
+    if (video['isLiked'] == 'disliked') {
       // already liked
       video['isLiked'] = 'null';
       video['dislikes']--;
     } else {
-      if(video['isLiked'] == 'liked') {
+      if (video['isLiked'] == 'liked') {
         video['likes']--;
       }
       video['isLiked'] = 'disliked';

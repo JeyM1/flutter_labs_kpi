@@ -3,26 +3,52 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lab1_flutter_dart_basics/pages/subscriptions_page.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './models/videos.dart';
 import './pages/main_page.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => Videos(),
-      child: MyApp(),
-    ),
-  );
+  SharedPreferences.getInstance().then((sp) {
+    runApp(
+      ChangeNotifierProvider(
+        create: (context) => Videos(),
+        child: MyApp(isDarkTheme: sp.getBool('isDarkTheme') ?? true),
+      ),
+    );
+  });
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  final bool isDarkTheme;
+
+  const MyApp({Key? key, required this.isDarkTheme}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _MyAppState(isDarkTheme);
+}
+
+class _MyAppState extends State<MyApp> {
+  late bool isDarkTheme;
+
+  void toggleTheme() {
+    setState(() {
+      isDarkTheme = !isDarkTheme;
+      SharedPreferences.getInstance().then((sp) {
+        sp.setBool('isDarkTheme', isDarkTheme);
+      });
+    });
+  }
+
+
+  _MyAppState(this.isDarkTheme);
+
   @override
   Widget build(BuildContext context) {
     Provider.of<Videos>(context, listen: false).update();
     return MaterialApp(
       title: 'Another YouTube clone',
       theme: ThemeData(
-        brightness: Brightness.dark,
+        brightness: isDarkTheme ? Brightness.dark : Brightness.light,
         // primarySwatch: Colors.grey,
 
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -50,17 +76,18 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      themeMode: ThemeMode.dark,
-      home: App(),
+      home: App(toggleTheme: toggleTheme),
     );
   }
 }
 
 class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
+  final Function toggleTheme;
+
+  const App({Key? key, required this.toggleTheme}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _AppState();
+  State<StatefulWidget> createState() => _AppState(toggleTheme);
 }
 
 class _AppState extends State<App> {
@@ -68,7 +95,9 @@ class _AppState extends State<App> {
   int _totalSubscribeCount = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final Function toggleTheme;
 
+  _AppState(this.toggleTheme);
 
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
@@ -91,15 +120,14 @@ class _AppState extends State<App> {
   }
 
   List get indexToPageMap => [
-    MainPage(incrementSubscribeCounter: incrementTotalSubsCount),
-    Text('Not implemented'),
-    Text('Not implemented'),
-    SubscriptionsPage(
-        totalSubscribeClicks: _totalSubscribeCount,
-        onClick: incrementTotalSubsCount
-    ),
-    Text('Not implemented'),
-  ];
+        MainPage(incrementSubscribeCounter: incrementTotalSubsCount),
+        Text('Not implemented'),
+        Text('Not implemented'),
+        SubscriptionsPage(
+            totalSubscribeClicks: _totalSubscribeCount,
+            onClick: incrementTotalSubsCount),
+        Text('Not implemented'),
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -293,10 +321,9 @@ class _AppState extends State<App> {
               },
             ),
             ListTile(
-              title: const Text('Something other...'),
+              title: const Text('Change Theme'),
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('In development')));
+                toggleTheme();
                 Navigator.pop(context);
               },
             ),
