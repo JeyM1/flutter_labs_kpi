@@ -56,7 +56,7 @@ class VideoPage extends StatelessWidget {
                       left: 10,
                       child: IconButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.of(context).pop('watched');
                         },
                         icon: Icon(Icons.keyboard_arrow_down),
                       ),

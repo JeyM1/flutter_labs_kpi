@@ -47,6 +47,9 @@ class _MyAppState extends State<MyApp> {
     Provider.of<Videos>(context, listen: false).update();
     return MaterialApp(
       title: 'Another YouTube clone',
+      routes: {
+        '/': (context) => App(toggleTheme: toggleTheme),
+      },
       theme: ThemeData(
         brightness: isDarkTheme ? Brightness.dark : Brightness.light,
         // primarySwatch: Colors.grey,
@@ -77,7 +80,6 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       themeMode: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-      home: App(toggleTheme: toggleTheme),
     );
   }
 }
