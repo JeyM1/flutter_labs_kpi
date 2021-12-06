@@ -76,6 +76,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
+      themeMode: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
       home: App(toggleTheme: toggleTheme),
     );
   }
